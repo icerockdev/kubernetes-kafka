@@ -37,15 +37,20 @@ data:
     server.5=zoo-1.zoo:2888:3888:participant
 
   log4j.properties: |-
-    log4j.rootLogger=INFO, stdout
-    log4j.appender.stdout=org.apache.log4j.RollingFileAppender
+    log4j.rootLogger=INFO, stdout, kafkaAppender
+
     log4j.appender.stdout=org.apache.log4j.ConsoleAppender
     log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
     log4j.appender.stdout.layout.ConversionPattern=[%d] %p %m (%c)%n
-    log4j.appender.stdout.MaxFileSize=40MB
-    log4j.appender.stdout.MaxBackupIndex=10
-    log4j.appender.stdout.File=/var/lib/zookeeper/log/zookeeper.log
 
-    # Suppress connection log messages, three lines per livenessProbe execution
+    log4j.appender.kafkaAppender=org.apache.log4j.RollingFileAppender
+    log4j.appender.kafkaAppender.layout=org.apache.log4j.PatternLayout
+    log4j.appender.kafkaAppender.layout.ConversionPattern=[%d] %p %m (%c)%n
+    log4j.appender.kafkaAppender.MaxFileSize=40MB
+    log4j.appender.kafkaAppender.MaxBackupIndex=10
+    log4j.appender.kafkaAppender.File=/var/lib/zookeeper/log/zookeeper.log
+
+
+     # Suppress connection log messages, three lines per livenessProbe execution
     log4j.logger.org.apache.zookeeper.server.NIOServerCnxnFactory=WARN
     log4j.logger.org.apache.zookeeper.server.NIOServerCnxn=WARN
